@@ -1,0 +1,101 @@
+plugins {
+    id 'com.android.application'
+    id 'kotlin-android'
+    id 'kotlin-kapt'
+    id 'dagger.hilt.android.plugin'
+    id 'androidx.navigation.safeargs'
+}
+
+apply from: '../dependencies.gradle'
+android {
+    compileSdk versions.compileSdk
+
+    defaultConfig {
+        applicationId "com.livin.jetpackcomposemvvmcleanarchiteuredictionaryapp"
+        minSdk versions.minSdk
+        targetSdk versions.targetSdk
+        versionCode 1
+        versionName "1.0"
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+    kotlinOptions {
+        jvmTarget = '1.8'
+        useIR = true
+    }
+    buildFeatures {
+        compose true
+    }
+    composeOptions {
+        kotlinCompilerExtensionVersion versions.compose_version
+        kotlinCompilerVersion versions.kotlinGradlePlugin
+    }
+    packagingOptions {
+        resources {
+            excludes += '/META-INF/{AL2.0,LGPL2.1}'
+        }
+    }
+}
+
+dependencies {
+
+    implementation 'androidx.core:core-ktx:1.7.0'
+    implementation 'androidx.appcompat:appcompat:1.4.1'
+    implementation 'com.google.android.material:material:1.5.0'
+    testImplementation 'junit:junit:4.+'
+    androidTestImplementation 'androidx.test.ext:junit:1.1.3'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.4.0'
+
+
+    //AndroidX
+    implementation deps.androidx.core
+    implementation deps.androidx.appcompat
+    implementation deps.androidx.constraintlayout
+
+    //AndroidX| Lifecycle
+    implementation deps.androidx.lifecycleViewmodel
+    implementation deps.androidx.lifecycleRuntime
+    implementation deps.androidx.lifecycleCompose
+
+    //AndroidX| Navigation
+    implementation deps.androidx.navigationFragment
+    implementation deps.androidx.navigationUiKTX
+
+    //Compose
+    implementation deps.compose.ui
+    implementation deps.compose.foundation
+    implementation deps.compose.material
+    implementation deps.compose.tooling
+    implementation deps.compose.activity
+
+    //Squareup | Retrofit
+    implementation deps.squareup.retrofit
+    implementation deps.squareup.loggingInterceptor
+    implementation deps.squareup.gsonConverter
+
+    //Coroutine
+    implementation deps.coroutinesAndroid
+
+    //Google| Material UI
+    implementation deps.google.material
+
+    //Goolge| Dagger HILT
+    implementation deps.google.hilt
+    kapt deps.google.hilt_compiler
+
+    //Room
+    implementation deps.room.roomRuntime
+    implementation deps.room.roomKtx
+    kapt deps.room.room_compiler
+}
